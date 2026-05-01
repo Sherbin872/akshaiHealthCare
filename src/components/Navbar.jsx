@@ -41,7 +41,7 @@ const Navbar = () => {
                                 className="w-11 h-11 object-contain"
                             />
                             <span className="hidden sm:block">Akshai Healthcare</span>
-                            <span className="sm:hidden">SAHS</span>
+                            <span className="sm:hidden">SAFHE</span>
                         </a>
                     </div>
 
