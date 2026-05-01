@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import brochure from '../assets/Akshai Healthcare Service Brochure.pdf';
+import application from '../assets/Application Form.pdf';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-
+    const btnBase =
+        "px-4 py-2.5 font-semibold text-[14px] rounded-lg transition-all duration-300 transform hover:scale-[1.02]";
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 10);
@@ -63,17 +66,25 @@ const Navbar = () => {
                         <div className="flex items-center gap-3">
                             {/* Secondary CTA */}
                             <a
-                                href="#download"
-                                className="px-4 py-2.5 border-2 border-[#1E3A8A] text-[#1E3A8A] font-semibold text-[14px] rounded-lg hover:bg-[#1E3A8A] hover:text-white transition-all duration-300 transform hover:scale-[1.02]"
+                                href={brochure}
+                                download
+                                className={`${btnBase} border-2 border-[#1E3A8A] text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white`}
                             >
                                 Download Brochure
                             </a>
+                            <a
+                                href={application}
+                                download
+                                className={`${btnBase} bg-[#16A34A] text-white hover:bg-[#15803D]`}
+                            >
+                                Application
+                            </a>
                             {/* Primary CTA */}
                             <a
-                                href="#appointment"
+                                href="tel:+919442659377"
                                 className="px-5 py-2.5 bg-[#DC2626] text-white font-semibold text-[14px] rounded-lg hover:bg-[#B91C1C] transition-all duration-300 transform hover:scale-[1.02] shadow-md hover:shadow-lg"
                             >
-                                Book Appointment
+                                Call Now
                             </a>
                         </div>
                     </div>
@@ -81,10 +92,10 @@ const Navbar = () => {
                     {/* Mobile Menu Button */}
                     <div className="lg:hidden flex items-center gap-3">
                         <a
-                            href="#appointment"
+                            href="tel:+919442659377"
                             className="px-3 py-2 bg-[#DC2626] text-white font-semibold text-[13px] rounded-lg hover:bg-[#B91C1C] transition-all duration-300"
                         >
-                            Book
+                            Call
                         </a>
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}

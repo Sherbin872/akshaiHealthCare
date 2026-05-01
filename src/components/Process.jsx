@@ -6,10 +6,12 @@ import {
     Settings,
     Heart,
     ArrowRight,
+    Download,
     ChevronRight,
     Sparkles,
     Zap,
 } from 'lucide-react';
+import brochure from '../assets/Akshai Healthcare Service Brochure.pdf';
 
 const Process = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -282,8 +284,8 @@ const Process = () => {
                                     {/* Card Content */}
                                     <div
                                         className={`bg-white rounded-xl p-5 transition-all duration-500 w-full border ${index === activeStep
-                                                ? 'shadow-xl scale-105 border-[#3B82F6]/20'
-                                                : 'shadow-md border-transparent hover:shadow-lg'
+                                            ? 'shadow-xl scale-105 border-[#3B82F6]/20'
+                                            : 'shadow-md border-transparent hover:shadow-lg'
                                             }`}
                                         style={{
                                             boxShadow:
@@ -382,8 +384,8 @@ const Process = () => {
                                 {/* Card */}
                                 <div
                                     className={`bg-white rounded-xl p-5 sm:p-6 transition-all duration-500 border ${index === activeStep
-                                            ? 'shadow-lg border-[#3B82F6]/20'
-                                            : 'shadow-sm border-transparent hover:shadow-md'
+                                        ? 'shadow-lg border-[#3B82F6]/20'
+                                        : 'shadow-sm border-transparent hover:shadow-md'
                                         }`}
                                     style={{
                                         boxShadow:
@@ -435,12 +437,15 @@ const Process = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <a
-                            href="#appointment"
+                            href={brochure}
+                            download
                             className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#DC2626] text-white font-semibold rounded-xl hover:bg-[#B91C1C] transition-all duration-300 transform hover:scale-[1.03] active:scale-95 shadow-lg overflow-hidden"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                            <PhoneCall className="w-5 h-5 relative z-10" />
-                            <span className="relative z-10">Book Appointment</span>
+
+                            <Download className="w-5 h-5 relative z-10" />
+
+                            <span className="relative z-10">Download Brochure</span>
                         </a>
                         <a
                             href="tel:+919442659377"

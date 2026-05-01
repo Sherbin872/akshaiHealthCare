@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FileText, ClipboardEdit, Download, ArrowRight, CheckCircle, Shield, Sparkles, Star, Clock, Phone, Zap, BadgeCheck } from 'lucide-react';
-
+import brochure from '../assets/Akshai Healthcare Service Brochure.pdf';
+import application from '../assets/Application Form.pdf';
 const DownloadSection = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [activeCard, setActiveCard] = useState(null);
@@ -15,7 +16,7 @@ const DownloadSection = () => {
                 'Get detailed information about our services, plans, pricing, and healthcare solutions — all in one comprehensive document.',
             buttonText: 'Download Brochure',
             buttonIcon: Download,
-            href: '/brochure.pdf',
+            href: brochure,
             color: '#1E3A8A',
             gradient: 'from-[#1E3A8A] to-[#3B82F6]',
             bgLight: 'bg-[#EFF6FF]',
@@ -38,7 +39,7 @@ const DownloadSection = () => {
                 'Ready to start? Fill our comprehensive assessment form — caregiver preferences, medical needs, shift timings & more.',
             buttonText: 'Download Form',
             buttonIcon: ClipboardEdit,
-            href: '/application-form.pdf',
+            href: application,
             color: '#16A34A',
             gradient: 'from-[#16A34A] to-[#22C55E]',
             bgLight: 'bg-[#F0FDF4]',

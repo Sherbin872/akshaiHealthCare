@@ -310,7 +310,7 @@ const Benefits = () => {
                             <span className="tabular-nums font-bold">{displayCount.toLocaleString()}+</span> families trust us
                         </span>
                         <a
-                            href="#appointment"
+                            href="#contact"
                             className="px-3 py-1 bg-[#DC2626] rounded-full text-xs font-bold hover:bg-[#B91C1C] transition-colors active:scale-95"
                         >
                             Get Started

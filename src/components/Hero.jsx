@@ -10,6 +10,7 @@ import {
     Heart,
     Quote,
 } from 'lucide-react';
+import brochure from '../assets/Akshai Healthcare Service Brochure.pdf';
 
 const Hero = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -211,17 +212,17 @@ const Hero = () => {
                             {/* CTA Buttons */}
                             <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 justify-center lg:justify-start mb-3 lg:mb-4">
                                 <a
-                                    href="#appointment"
+                                    href="#contact"
                                     className="group relative inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#DC2626] text-white font-semibold text-sm lg:text-base rounded-xl hover:bg-[#B91C1C] transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg overflow-hidden"
                                 >
                                     <div className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-700" />
                                     <span className="relative flex items-center gap-2">
-                                        Book Appointment
+                                        Contact Us
                                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                 </a>
                                 <a
-                                    href="/brochure.pdf"
+                                    href={brochure}
                                     download
                                     className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white font-semibold text-sm lg:text-base rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-[1.02] active:scale-95"
                                 >

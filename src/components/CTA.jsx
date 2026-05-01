@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Phone, CalendarCheck, Shield, Star, ChevronRight, HeadphonesIcon, Users, Zap } from 'lucide-react';
+import application from '../assets/Application Form.pdf';
 
 const CTA = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -166,10 +167,14 @@ const CTA = () => {
                                 <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#EFF6FF] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     <CalendarCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3A8A]" />
                                 </div>
-                                <div className="text-left">
-                                    <div className="font-extrabold">Book Appointment</div>
-                                    <div className="text-[10px] sm:text-xs text-gray-500 font-medium">Schedule a visit</div>
-                                </div>
+                                <a href={application} download className="flex items-center gap-3">
+                                    <div className="text-left">
+                                        <div className="font-extrabold">Download Application</div>
+                                        <div className="text-[10px] sm:text-xs text-gray-500 font-medium">
+                                            Get the application form
+                                        </div>
+                                    </div>
+                                </a>
                                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E3A8A] group-hover:translate-x-1 transition-transform" />
                             </div>
                         </a>
