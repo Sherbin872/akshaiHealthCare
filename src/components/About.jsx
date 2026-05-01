@@ -50,7 +50,6 @@ const About = () => {
         }
     }, [isVisible, typingIndex]);
 
-
     const companyHighlights = [
         { icon: Users, stat: '10,000+', label: 'Patients Served', color: '#3B82F6' },
         { icon: Award, stat: '5+', label: 'Years Experience', color: '#16A34A' },
@@ -127,6 +126,7 @@ const About = () => {
         { icon: Award, title: 'Respect & Dignity', color: '#EA580C' },
     ];
 
+    // Auto carousel for mobile
     useEffect(() => {
         if (!isVisible || isPaused) return;
         const timer = setInterval(() => {
@@ -135,6 +135,7 @@ const About = () => {
         return () => clearInterval(timer);
     }, [isVisible, isPaused, leaders.length]);
 
+    // Auto-scroll values
     useEffect(() => {
         if (!isVisible) return;
         const valuesContainer = document.getElementById('values-scroll');
@@ -149,12 +150,20 @@ const About = () => {
         return () => clearInterval(timer);
     }, [isVisible]);
 
+    // ===== INTERSECTION OBSERVER — DETECT WHEN SECTION LEAVES VIEWPORT =====
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) setIsVisible(true);
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                } else {
+                    // Section exited viewport → dismiss all modals/popups immediately
+                    setIsVisible(false);
+                    setSelectedLeader(null);
+                    setHoveredLeader(null);
+                }
             },
-            { threshold: 0.15 }
+            { threshold: 0.1 }
         );
         if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
@@ -176,6 +185,18 @@ const About = () => {
             setHoveredLeader(null);
         }, 200);
     };
+
+    // ===== CLOSE MODAL ON SCROLL =====
+    useEffect(() => {
+        const handleScroll = () => {
+            if (selectedLeader || hoveredLeader) {
+                setSelectedLeader(null);
+                setHoveredLeader(null);
+            }
+        };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [selectedLeader, hoveredLeader]);
 
     return (
         <section ref={sectionRef} className="py-12 lg:py-16 bg-white relative overflow-hidden">
@@ -423,7 +444,6 @@ const About = () => {
 
                         {/* Popup Content - Scrollable */}
                         <div className="p-4 sm:p-5 max-h-[320px] overflow-y-auto scrollbar-thin">
-                            {/* Role Badge */}
                             <div className="text-center mb-4">
                                 <p
                                     className="text-xs font-semibold px-3 py-1 rounded-full inline-block"
@@ -434,7 +454,6 @@ const About = () => {
                                 <p className="text-xs text-gray-500 mt-1.5 italic">"{hoveredLeader.tagline}"</p>
                             </div>
 
-                            {/* Achievements */}
                             <ul className="space-y-2.5">
                                 {hoveredLeader.achievements.map((achievement, i) => (
                                     <li
@@ -454,7 +473,6 @@ const About = () => {
                                 ))}
                             </ul>
 
-                            {/* Connect Button */}
                             <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
                                 <div className="flex gap-2">
                                     <button className="w-8 h-8 rounded-full bg-[#EFF6FF] flex items-center justify-center hover:bg-[#1E3A8A] hover:text-white transition-all duration-300">
@@ -502,11 +520,8 @@ const About = () => {
                         <div className={`relative h-44 sm:h-52 bg-gradient-to-br ${selectedLeader.gradient} flex items-center justify-center`}>
                             <div className="absolute top-6 right-6 w-24 h-24 bg-white/10 rounded-full blur-xl" />
                             <div className="absolute bottom-4 left-4 w-16 h-16 bg-white/10 rounded-full blur-lg" />
-
-                            {/* Orbiting rings */}
                             <div className="absolute w-40 h-40 rounded-full border border-dashed border-white/20 animate-spin-slow" />
                             <div className="absolute w-48 h-48 rounded-full border border-dashed border-white/10 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '12s' }} />
-
                             <div className="relative z-10 text-center">
                                 <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white/20 backdrop-blur-sm border-3 border-white/40 flex items-center justify-center shadow-2xl mx-auto mb-3">
                                     <span className="text-4xl sm:text-5xl font-bold text-white">{selectedLeader.initials}</span>
@@ -542,8 +557,8 @@ const About = () => {
                             </ul>
 
                             <div className="flex items-center justify-center gap-3 mt-6 pt-4 border-t border-gray-100">
-                                <button className="w-10 h-10 rounded-full bg-[#EFF6FF] flex items-center justify-center hover:bg-[#1E3A8A] hover:text-white transition-all duration-300">
-                                    <Linkedin className="w-4 h-4" />
+                                {/* <button className="w-10 h-10 rounded-full bg-[#EFF6FF] flex items-center justify-center hover:bg-[#1E3A8A] hover:text-white transition-all duration-300">
+                                    <Link className="w-4 h-4" />
                                 </button>
                                 <button className="w-10 h-10 rounded-full bg-[#F0FDF4] flex items-center justify-center hover:bg-[#16A34A] hover:text-white transition-all duration-300">
                                     <Mail className="w-4 h-4" />
@@ -554,7 +569,7 @@ const About = () => {
                                     className="px-5 py-2.5 bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6] text-white rounded-xl text-sm font-semibold hover:scale-105 transition-transform duration-300"
                                 >
                                     Connect with Team
-                                </a>
+                                </a> */}
                             </div>
                         </div>
                     </div>
