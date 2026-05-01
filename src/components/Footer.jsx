@@ -106,7 +106,11 @@ const Footer = () => {
                     <div className="sm:col-span-2 lg:col-span-1 animate-fade-in-up">
                         <div className="flex items-center gap-2 mb-4">
                             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                                <span className="text-[#1E3A8A] font-extrabold text-lg">SA</span>
+                                <img
+                                    src="https://res.cloudinary.com/dkmmpyq6u/image/upload/f_auto,q_auto/SAFHE_Logo_tawlhv"
+                                    alt="Akshai Healthcare Logo"
+                                    className="w-11 h-11 object-contain"
+                                />
                             </div>
                             <div>
                                 <h3 className="text-white font-bold text-lg leading-tight">
