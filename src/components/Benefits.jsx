@@ -22,8 +22,7 @@ const Benefits = () => {
     const [displayCount, setDisplayCount] = useState(0);
     const sectionRef = useRef(null);
     const intervalRef = useRef(null);
-    // Track if we're currently animating (no lock, just for CSS class)
-    const [direction, setDirection] = useState(0); // -1 = prev, 1 = next, 0 = settled
+    const lastManualNavRef = useRef(0);
 
     const benefits = [
         {
@@ -89,44 +88,26 @@ const Benefits = () => {
     ];
 
     const totalSlides = benefits.length;
-
-    // Compute wrap-around indices
     const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
     const nextIndex = (currentIndex + 1) % totalSlides;
 
-    // ===== SINGLE INTERVAL — NEVER RESTARTS =====
-    useEffect(() => {
+    // ===== CLEAR & RESTART INTERVAL HELPER =====
+    const startAutoPlay = useCallback(() => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % totalSlides);
-            setDirection(1);
-        }, 1800);
-        return () => clearInterval(intervalRef.current);
-    }, [totalSlides]); // Only depends on totalSlides — never restarts
+        }, 2500);
+    }, [totalSlides]);
 
-    // ===== PAUSE/RESUME WITHOUT CLEARING INTERVAL =====
+    // ===== START AUTO-PLAY WHEN VISIBLE =====
     useEffect(() => {
-        if (!intervalRef.current) return;
-        if (isPaused) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-        } else {
-            intervalRef.current = setInterval(() => {
-                setCurrentIndex((prev) => (prev + 1) % totalSlides);
-                setDirection(1);
-            }, 1800);
+        if (isVisible && !isPaused) {
+            startAutoPlay();
         }
         return () => {
             if (intervalRef.current) clearInterval(intervalRef.current);
         };
-    }, [isPaused, totalSlides]);
-
-    // Reset direction after transition completes
-    useEffect(() => {
-        if (direction !== 0) {
-            const timer = setTimeout(() => setDirection(0), 400);
-            return () => clearTimeout(timer);
-        }
-    }, [direction, currentIndex]);
+    }, [isVisible, isPaused, startAutoPlay]);
 
     // ===== INTERSECTION OBSERVER =====
     useEffect(() => {
@@ -137,6 +118,12 @@ const Benefits = () => {
                     if (!counted) {
                         setCounted(true);
                         animateCount();
+                    }
+                } else {
+                    setIsVisible(false);
+                    if (intervalRef.current) {
+                        clearInterval(intervalRef.current);
+                        intervalRef.current = null;
                     }
                 }
             },
@@ -164,32 +151,28 @@ const Benefits = () => {
         requestAnimationFrame(tick);
     };
 
-    // ===== NAVIGATION — NO LOCK =====
+    // ===== NAVIGATION — RESETS AUTO-PLAY TIMER =====
     const goToPrev = useCallback(() => {
         setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
-        setDirection(-1);
-    }, [totalSlides]);
+        lastManualNavRef.current = Date.now();
+        startAutoPlay(); // Reset interval to prevent immediate skip
+    }, [totalSlides, startAutoPlay]);
 
     const goToNext = useCallback(() => {
         setCurrentIndex((prev) => (prev + 1) % totalSlides);
-        setDirection(1);
-    }, [totalSlides]);
+        lastManualNavRef.current = Date.now();
+        startAutoPlay(); // Reset interval to prevent immediate skip
+    }, [totalSlides, startAutoPlay]);
 
     const goToSlide = (index) => {
         if (index === currentIndex) return;
-        setDirection(index > currentIndex ? 1 : -1);
         setCurrentIndex(index);
+        lastManualNavRef.current = Date.now();
+        startAutoPlay(); // Reset interval
     };
 
-    // ===== COMPUTED STYLES — STABLE REFERENCES =====
     const leftTransform = 'perspective(800px) rotateY(18deg) scale(0.88) translateX(-60px)';
     const rightTransform = 'perspective(800px) rotateY(-18deg) scale(0.88) translateX(60px)';
-
-    const slideClass = (slideDirection) => {
-        if (direction === 0) return 'translate-x-0';
-        if (direction === 1) return '-translate-x-full';
-        return 'translate-x-full';
-    };
 
     return (
         <section ref={sectionRef} className="py-12 lg:py-16 bg-white relative overflow-hidden">
@@ -245,10 +228,9 @@ const Benefits = () => {
                         <ChevronRight className="w-4 h-4 text-[#1E3A8A]" />
                     </button>
 
-                    {/* Cards Container — NO hover events here */}
+                    {/* Cards Container */}
                     <div className="relative w-full flex items-center justify-center px-10 sm:px-12 overflow-hidden">
-
-                        {/* LEFT CARD — Always visible, GPU-only transforms */}
+                        {/* LEFT CARD */}
                         <div
                             className="absolute z-10 cursor-pointer will-change-transform"
                             style={{
@@ -271,7 +253,7 @@ const Benefits = () => {
                             <BenefitCardMain benefit={benefits[currentIndex]} />
                         </div>
 
-                        {/* RIGHT CARD — Always visible, GPU-only transforms */}
+                        {/* RIGHT CARD */}
                         <div
                             className="absolute z-10 cursor-pointer will-change-transform"
                             style={{
