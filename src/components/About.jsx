@@ -294,16 +294,19 @@ const About = () => {
 
                     {/* Coverage + Values */}
                     <div>
+                        {/* Serving Across */}
                         <div className="mb-4">
-                            <div className="flex items-center gap-1.5 mb-2">
-                                <Globe className="w-3.5 h-3.5 text-[#3B82F6]" />
-                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Serving Across</span>
+                            <div className="flex items-center justify-center sm:justify-start gap-1.5 mb-2">
+                                <Globe className="w-3.5 h-3.5 text-[#3B82F6] flex-shrink-0" />
+                                <span className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                    Serving Across
+                                </span>
                             </div>
-                            <div className="flex flex-wrap gap-1.5">
+                            <div className="flex flex-wrap justify-center sm:justify-start gap-1.5">
                                 {['Tirunelveli', 'Tuticorin', 'Tenkasi', 'Kanyakumari'].map((city, i) => (
                                     <span
                                         key={i}
-                                        className="text-[10px] font-semibold px-2.5 py-1 rounded-full border bg-white hover:shadow-md transition-all duration-300 hover:scale-105 cursor-default animate-float-tag"
+                                        className="text-[10px] sm:text-xs font-semibold px-2.5 py-1 rounded-full border bg-white hover:shadow-md transition-all duration-300 hover:scale-105 cursor-default animate-float-tag whitespace-nowrap"
                                         style={{
                                             animationDelay: `${i * 0.15}s`,
                                             borderColor: ['#EA580C', '#3B82F6', '#16A34A', '#9333EA'][i] + '40',
@@ -315,10 +318,29 @@ const About = () => {
                                 ))}
                             </div>
                         </div>
+
+                        {/* Values */}
                         <div>
-                            <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-2">Values</p>
+                            <p className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2 text-center sm:text-left">
+                                Values
+                            </p>
                             <div className="relative overflow-hidden rounded-xl border border-gray-100 bg-white">
-                                <div id="values-scroll" className="flex gap-1.5 p-2 overflow-x-hidden">
+                                {/* Mobile: centered wrapped grid */}
+                                <div className="sm:hidden flex flex-wrap justify-center gap-1.5 p-2">
+                                    {values.map((v, i) => (
+                                        <span
+                                            key={i}
+                                            className="inline-flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1.5 rounded-full border bg-white hover:shadow-md transition-all duration-300"
+                                            style={{ borderColor: v.color + '30', color: v.color }}
+                                        >
+                                            <v.icon className="w-3 h-3" />
+                                            {v.title}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Desktop: auto-scroll */}
+                                <div id="values-scroll" className="hidden sm:flex gap-1.5 p-2 overflow-x-hidden">
                                     {[...values, ...values].map((v, i) => (
                                         <span
                                             key={i}
@@ -330,8 +352,10 @@ const About = () => {
                                         </span>
                                     ))}
                                 </div>
-                                <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-                                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+
+                                {/* Edge fades - desktop only */}
+                                <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent pointer-events-none" />
+                                <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent pointer-events-none" />
                             </div>
                         </div>
                     </div>
