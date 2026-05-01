@@ -199,7 +199,7 @@ const About = () => {
     }, [selectedLeader, hoveredLeader]);
 
     return (
-        <section ref={sectionRef} className="py-12 lg:py-16 bg-white relative overflow-hidden">
+        <section id="about" ref={sectionRef} className="py-12 lg:py-16 bg-white relative overflow-hidden">
             {/* Animated Background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-[linear-gradient(#3B82F6_0.5px,transparent_0.5px),linear-gradient(to_right,#3B82F6_0.5px,transparent_0.5px)] bg-[length:40px_40px] opacity-[0.015] animate-grid-drift" />

@@ -167,7 +167,7 @@ const Services = () => {
     };
 
     return (
-        <section className="py-16 lg:py-24 bg-[#F5F5F5] relative overflow-hidden">
+        <section id="services" className="py-16 lg:py-24 bg-[#F5F5F5] relative overflow-hidden">
             {/* Floating Animated Icons Background */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 {floatingIcons.map((item, i) => (

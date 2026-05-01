@@ -128,7 +128,7 @@ const Plans = () => {
     }, []);
 
     return (
-        <section ref={sectionRef} className="py-16 lg:py-20 bg-[#F5F5F5] relative overflow-hidden">
+        <section id="plans" ref={sectionRef} className="py-16 lg:py-20 bg-[#F5F5F5] relative overflow-hidden">
             {/* Floating Elements */}
             {floatingElements.map((el, i) => (
                 <div

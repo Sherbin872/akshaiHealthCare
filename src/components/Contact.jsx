@@ -165,7 +165,7 @@ const Contact = () => {
     };
 
     return (
-        <section ref={sectionRef} className="py-12 lg:py-16 bg-gradient-to-b from-[#F5F5F5] to-white relative overflow-hidden">
+        <section id="contact" ref={sectionRef} className="py-12 lg:py-16 bg-gradient-to-b from-[#F5F5F5] to-white relative overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-[#3B82F6]/3 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />

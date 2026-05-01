@@ -77,7 +77,7 @@ const Hero = () => {
     ];
 
     return (
-        <section className="relative min-h-[85vh] max-h-[800px] flex flex-col overflow-hidden bg-gradient-to-br from-[#0B1D4A] via-[#1E3A8A] to-[#1D4ED8] pt-16 sm:pt-20 lg:pt-20">
+        <section id="home" className="relative min-h-[85vh] max-h-[800px] flex flex-col overflow-hidden bg-gradient-to-br from-[#0B1D4A] via-[#1E3A8A] to-[#1D4ED8] pt-16 sm:pt-20 lg:pt-20">
             {/* ========== TOP MARQUEE - FULL WIDTH ========== */}
             <div
                 className={`w-full transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
