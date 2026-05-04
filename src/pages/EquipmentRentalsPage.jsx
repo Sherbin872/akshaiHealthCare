@@ -45,6 +45,7 @@ const EquipmentRentalsPage = () => {
     const [expandedCategory, setExpandedCategory] = useState(null);
     const [activeImage, setActiveImage] = useState(0);
     const sectionRef = useRef(null);
+    const isMobile = window.innerWidth < 1024;
 
     // Hero image gallery
     const heroGallery = [
@@ -54,7 +55,17 @@ const EquipmentRentalsPage = () => {
         { src: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600', alt: 'Wheelchair assistance', position: 'object-center' },
         { src: 'https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600', alt: 'Medical equipment', position: 'object-center' },
     ];
+    const visibleGallery = isMobile ? heroGallery.slice(0, 3) : heroGallery;
 
+    useEffect(() => {
+        if (isPaused) return;
+
+        const interval = setInterval(() => {
+            setActiveImage((prev) => (prev + 1) % visibleGallery.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    }, [isPaused, visibleGallery.length]);
     const testimonials = [
         { quote: "Renting the oxygen concentrator was so easy and affordable. Delivery was prompt and the equipment worked perfectly.", author: 'Venkatesh R.', relation: 'Son of Patient', rating: 5, avatar: 'VR' },
         { quote: "The hospital bed and wheelchair made caring for my mother at home so much easier. Highly recommended!", author: 'Kavitha S.', relation: 'Daughter', rating: 5, avatar: 'KS' },
@@ -237,32 +248,39 @@ const EquipmentRentalsPage = () => {
             </a>
 
             {/* ========== HERO — UNIQUE SPLIT LAYOUT ========== */}
-            <section className="relative min-h-[90vh] flex items-stretch overflow-hidden">
-                {/* LEFT — Dark Content Side (40%) */}
-                <div className="relative w-full lg:w-[42%] bg-[#0A1628] flex items-center">
-                    {/* Dark side patterns */}
+            <section className="
+  relative
+  min-h-[calc(100vh-56px)]
+  pt-[56px]
+  flex flex-col lg:flex-row
+  overflow-hidden
+">
+
+                {/* LEFT */}
+                <div className="w-full lg:w-[42%] bg-[#0A1628] flex items-center relative">
+
                     <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:16px_16px]" />
-                    <div className="absolute top-0 right-0 w-48 h-48 bg-[#16A34A]/10 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#16A34A]/5 rounded-full blur-3xl" />
+                    <div className="absolute top-0 right-0 w-40 h-40 bg-[#16A34A]/10 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#16A34A]/5 rounded-full blur-3xl" />
 
-                    {/* Vertical accent line */}
-                    <div className="absolute right-0 top-20 bottom-20 w-px bg-gradient-to-b from-transparent via-[#16A34A]/30 to-transparent hidden lg:block" />
+                    <div className="relative w-full px-5 sm:px-8 lg:px-12 py-12 sm:py-16">
 
-                    <div className={`relative w-full px-6 sm:px-10 lg:px-12 py-16 sm:py-20 transition-all duration-800 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-                        <a href="#home" className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 mb-8 transition-all text-xs group">
-                            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" /><span>Back</span>
-                        </a>
+                        <button
+                            onClick={() => navigate("/")}
+                            className="inline-flex items-center gap-2 text-white/40 hover:text-white mb-6 text-xs group"
+                        >
+                            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                            <span>Back</span>
+                        </button>
 
-                        {/* Service Badge */}
-                        <div className="inline-flex items-center gap-2 bg-[#16A34A]/10 border border-[#16A34A]/20 px-3 py-1.5 rounded-full mb-5">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#16A34A] opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#16A34A]" />
+                        <div className="inline-flex items-center gap-2 bg-[#16A34A]/10 border border-[#16A34A]/20 px-3 py-1.5 rounded-full mb-4">
+                            <span className="w-2 h-2 bg-[#16A34A] rounded-full animate-pulse" />
+                            <span className="text-[#16A34A] text-[10px] font-bold uppercase tracking-widest">
+                                Rental & Sales Available
                             </span>
-                            <span className="text-[#16A34A] text-[10px] font-bold uppercase tracking-widest">Rental & Sales Available</span>
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.08] mb-4 tracking-tight">
+                        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-white leading-tight mb-3">
                             Medical
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#4ADE80] to-[#86EFAC]">
                                 Equipment
@@ -270,106 +288,96 @@ const EquipmentRentalsPage = () => {
                             Rentals
                         </h1>
 
-                        <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-sm">
-                            Safe, affordable medical equipment delivered to your home — <span className="text-white/70 font-medium">flexible rentals for as long as you need</span>.
+                        <p className="text-white/60 text-sm sm:text-base mb-5 max-w-md">
+                            Safe, affordable medical equipment delivered to your home.
                         </p>
 
-                        {/* Trust stats row */}
-                        <div className="flex gap-4 mb-6">
+                        <div className="flex gap-6 mb-6">
                             {[
-                                { num: '200+', label: 'Equipment Types' },
-                                { num: '5K+', label: 'Rentals Served' },
-                                { num: '24/7', label: 'Support' },
-                            ].map((stat, i) => (
-                                <div key={i} className="text-center">
-                                    <p className="text-white font-bold text-lg leading-tight">{stat.num}</p>
-                                    <p className="text-white/30 text-[10px] uppercase tracking-wider">{stat.label}</p>
+                                { num: "200+", label: "Equipment" },
+                                { num: "5K+", label: "Rentals" },
+                            ].map((s, i) => (
+                                <div key={i}>
+                                    <p className="text-white font-bold text-lg">{s.num}</p>
+                                    <p className="text-white/40 text-[10px] uppercase">{s.label}</p>
                                 </div>
                             ))}
                         </div>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-wrap gap-3">
-                            <a href="tel:+919442659377" className={`inline-flex items-center gap-2 px-5 py-3 bg-[#16A34A] text-white font-bold text-sm rounded-xl hover:bg-[#15803D] transition-all duration-300 hover:scale-[1.03] shadow-lg shadow-[#16A34A]/20 ${isCallPulsing ? 'ring-4 ring-[#16A34A]/20' : ''}`}>
-                                <Phone className="w-4 h-4" />Call Now
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <a
+                                href="tel:+919442659377"
+                                className="flex items-center justify-center gap-2 px-5 py-3 bg-[#16A34A] text-white font-bold text-sm rounded-xl hover:bg-[#15803D] transition"
+                            >
+                                <Phone className="w-4 h-4" />
+                                Call Now
                             </a>
-                            <a href="#services" className="inline-flex items-center gap-2 px-5 py-3 bg-white/5 border border-white/10 text-white text-sm font-semibold rounded-xl hover:bg-white/10 transition-all hover:scale-[1.03]">
+
+                            <button
+                                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+                                className="flex items-center justify-center gap-2 px-5 py-3 border border-white/20 text-white text-sm rounded-xl hover:bg-white/10 transition"
+                            >
                                 View Equipment <ChevronRight className="w-4 h-4" />
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                {/* RIGHT — Image Gallery Side (60%) */}
-                <div className="hidden lg:block relative w-[58%] bg-[#0F1D4A] overflow-hidden"
-                    onMouseEnter={() => setIsPaused(true)}
-                    onMouseLeave={() => setIsPaused(false)}>
-                    {/* Gallery Images */}
-                    <div className="absolute inset-0 grid grid-cols-3 grid-rows-2 gap-1 p-1">
+                {/* RIGHT */}
+                <div className="w-full lg:w-[58%] relative bg-[#0F1D4A]">
+
+                    {/* MOBILE */}
+                    <div className="lg:hidden p-4">
+                        <div className="relative rounded-xl overflow-hidden">
+                            <img
+                                src={visibleGallery[activeImage].src}
+                                alt=""
+                                className="w-full h-64 object-cover"
+                            />
+
+                            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                                {visibleGallery.map((_, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => setActiveImage(i)}
+                                        className={`h-1.5 rounded-full ${i === activeImage ? "w-6 bg-white" : "w-2 bg-white/40"
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* DESKTOP */}
+                    <div
+                        className="hidden lg:grid grid-cols-3 grid-rows-2 gap-1 h-full p-1"
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
+                    >
                         {heroGallery.map((img, i) => (
                             <div
                                 key={i}
-                                className={`relative overflow-hidden cursor-pointer group/img transition-all duration-500 ${i === activeImage ? 'col-span-2 row-span-2 z-10 ring-2 ring-[#16A34A]/50' : 'opacity-40 hover:opacity-60'
-                                    }`}
                                 onClick={() => setActiveImage(i)}
+                                className={`relative cursor-pointer overflow-hidden transition ${i === activeImage
+                                    ? "col-span-2 row-span-2 ring-2 ring-[#16A34A]/50"
+                                    : "opacity-50 hover:opacity-80"
+                                    }`}
                             >
                                 <img
                                     src={img.src}
-                                    alt={img.alt}
-                                    className={`w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110 ${img.position}`}
+                                    alt=""
+                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1D4A]/80 via-transparent to-transparent" />
-                                {i === activeImage && (
-                                    <div className="absolute bottom-3 left-3 right-3">
-                                        <p className="text-white text-xs font-bold">{img.alt}</p>
-                                        <div className="flex gap-1 mt-1">
-                                            {heroGallery.map((_, d) => (
-                                                <span key={d} className={`w-6 h-1 rounded-full transition-all ${d === activeImage ? 'bg-white' : 'bg-white/20'}`} />
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         ))}
                     </div>
 
-                    {/* Floating review card */}
-                    <div className="absolute bottom-6 right-6 bg-white/10 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/10 shadow-2xl z-20 animate-float-badge">
-                        <div className="flex items-center gap-2 mb-1">
-                            <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 text-[#FBBF24] fill-[#FBBF24]" />)}</div>
-                        </div>
-                        <p className="text-white/80 text-[11px] italic">"Excellent equipment & service!"</p>
-                        <p className="text-white/40 text-[9px] mt-0.5">— Venkatesh R.</p>
-                    </div>
-
-                    {/* Live indicator */}
-                    <div className="absolute top-6 right-6 flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/10 z-20">
-                        <span className="w-2 h-2 bg-[#16A34A] rounded-full animate-pulse" />
-                        <span className="text-white/60 text-[10px] font-medium">Live • Equipment Available</span>
-                    </div>
-                </div>
-
-                {/* Mobile: Stacked image gallery */}
-                <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#0A1628] via-[#0F1D4A] to-[#0A1628] flex flex-col">
-                    <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8 flex flex-col justify-end flex-1">
-                        {/* Mobile carousel */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 mb-6"
-                            onTouchStart={() => setIsPaused(true)}
-                            onTouchEnd={() => setIsPaused(false)}>
-                            <div className="relative aspect-[4/3]">
-                                {heroGallery.slice(0, 3).map((img, i) => (
-                                    <div key={i} className={`absolute inset-0 transition-all duration-500 ${i === activeImage ? 'opacity-100' : 'opacity-0'}`}>
-                                        <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1628] via-transparent to-transparent" />
-                                    </div>
-                                ))}
-                                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                                    {heroGallery.slice(0, 3).map((_, i) => (
-                                        <button key={i} onClick={() => setActiveImage(i)} className={`rounded-full transition-all ${i === activeImage ? 'w-6 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/30'}`} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    {/* FLOATING CARD */}
+                    <div className="hidden lg:block absolute bottom-6 right-6 bg-white/10 backdrop-blur-md px-4 py-3 rounded-xl border border-white/10">
+                        <p className="text-white text-xs italic">
+                            "Excellent equipment & service!"
+                        </p>
+                        <p className="text-white/40 text-[10px] mt-1">— Venkatesh R.</p>
                     </div>
                 </div>
             </section>
