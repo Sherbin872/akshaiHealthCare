@@ -16,6 +16,7 @@ import {
     Sparkles,
     Phone,
 } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
     const scrollContainerRef = useRef(null);
@@ -24,10 +25,12 @@ const Services = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
 
+    const navigate = useNavigate();
     const services = [
         {
             icon: HeartPulse,
             title: 'Home Nursing',
+            route: "/home-nursing",
             tagline: 'Skilled Care at Home',
             description:
                 'Professional nursing care including medication administration, wound care, vital monitoring & post-surgical recovery.',
@@ -42,6 +45,7 @@ const Services = () => {
         {
             icon: Stethoscope,
             title: 'Doctor Consultation',
+            route: "/home-doctor",
             tagline: 'Expert Medical Advice',
             description:
                 'Qualified doctors available for home visits — geriatric care, preventive check-ups, specialist consultations & more.',
@@ -56,6 +60,7 @@ const Services = () => {
         {
             icon: UserRound,
             title: 'Elderly Care',
+            route: "/elderly-care",
             tagline: 'Compassionate Support',
             description:
                 'Personalized assistance with daily activities, companionship, nutrition planning & medication management for seniors.',
@@ -70,6 +75,7 @@ const Services = () => {
         {
             icon: Activity,
             title: 'Physiotherapy',
+            route: "/physiotherapy",
             tagline: 'Recovery at Home',
             description:
                 'Rehabilitation therapies including heat application, therapeutic exercise, TENS, mobilization & strengthening exercises.',
@@ -84,6 +90,7 @@ const Services = () => {
         {
             icon: Siren,
             title: 'Emergency Care',
+            route: "/emergency-care",
             tagline: 'Immediate Response',
             description:
                 '24/7 emergency assistance with critical care, IV therapy, cardiac care & ambulance coordination when needed.',
@@ -98,6 +105,7 @@ const Services = () => {
         {
             icon: MonitorPlay,
             title: 'Telemedicine',
+            route: "/telemedicine",
             tagline: 'Virtual Healthcare',
             description:
                 'Remote consultations via secure platform — diagnosis, prescriptions, follow-up care from experienced physicians.',
@@ -112,6 +120,7 @@ const Services = () => {
         {
             icon: Package,
             title: 'Equipment Rentals',
+            route: "/equipments",
             tagline: 'Medical Gear Delivered',
             description:
                 'Quality medical equipment — wheelchairs, oxygen concentrators, hospital beds, BiPAP/CPAP machines & more.',
@@ -230,8 +239,10 @@ const Services = () => {
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {services.map((service, index) => (
+
                             <div
                                 key={index}
+                                onClick={() => navigate(service.route)}
                                 className="group relative flex-shrink-0 w-[300px] sm:w-[340px] lg:w-[370px] snap-start animate-card-reveal"
                                 style={{
                                     animationDelay: `${index * 0.1}s`,

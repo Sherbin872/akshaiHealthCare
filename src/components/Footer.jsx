@@ -9,9 +9,11 @@ import {
     Star,
     ArrowUp,
 } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
+    const navigate = useNavigate();
 
     const quickLinks = [
         { name: 'Home', href: '#home' },
@@ -22,12 +24,12 @@ const Footer = () => {
     ];
 
     const services = [
-        { name: 'Home Nursing', href: '#services' },
-        { name: 'Doctor Consultation', href: '#services' },
-        { name: 'Elderly Care', href: '#services' },
-        { name: 'Physiotherapy', href: '#services' },
-        { name: 'Emergency Care', href: '#services' },
-        { name: 'Telemedicine', href: '#services' },
+        { name: 'Home Nursing', href: '/home-nursing' },
+        { name: 'Doctor Consultation', href: '/home-doctor' },
+        { name: 'Elderly Care', href: '/elderly-care' },
+        { name: 'Physiotherapy', href: '/physiotherapy' },
+        { name: 'Emergency Care', href: '/emergency-care' },
+        { name: 'Telemedicine', href: '/telemedicine' },
     ];
 
     const contactInfo = [
@@ -167,8 +169,8 @@ const Footer = () => {
                             {services.map((service, index) => (
                                 <li key={index}>
                                     <a
-                                        href={service.href}
-                                        className="group flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 text-sm"
+                                        onClick={() => navigate(service.href)}
+                                        className="group flex items-center gap-2 text-white/70 hover:text-white cursor-pointer transition-all duration-300 text-sm"
                                     >
                                         <ChevronRight className="w-3.5 h-3.5 text-white/30 group-hover:text-[#16A34A] group-hover:translate-x-0.5 transition-all duration-300" />
                                         {service.name}
@@ -244,7 +246,7 @@ const Footer = () => {
                     </p>
 
                     <div className="flex items-center gap-4">
-                        <a
+                        {/* <a
                             href="#privacy"
                             className="text-white/50 hover:text-white/80 text-xs transition-colors duration-300"
                         >
@@ -256,7 +258,7 @@ const Footer = () => {
                             className="text-white/50 hover:text-white/80 text-xs transition-colors duration-300"
                         >
                             Terms of Service
-                        </a>
+                        </a> */}
 
                         {/* Scroll to Top Button */}
                         <button
