@@ -86,8 +86,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email Address",
-      value: "info@akshaihealthcare.com",
-      href: "mailto:info@akshaihealthcare.com",
+      value: "contact@akshaihealthcare.com",
+      href: "mailto:contact@akshaihealthcare.com",
       color: "text-[#3B82F6]",
       bgColor: "bg-[#EFF6FF]",
       action: "Send Email",
