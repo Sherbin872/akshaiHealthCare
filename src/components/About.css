@@ -1,0 +1,4 @@
+@keyframes marquee-resume {
+  from { transform: translateX(var(--start-x, 0px)); }
+  to { transform: translateX(calc(var(--start-x, 0px) - 100%)); }
+}   
