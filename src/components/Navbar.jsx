@@ -55,7 +55,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between min-h-[96px] lg:min-h-[112px] py-2 gap-4">
+        <div className="flex items-center justify-between min-h-[80px] lg:min-h-[96px] py-2 gap-4">
           {/* Logo */}
           <div className="flex-shrink-0 py-1">
             <a
@@ -65,13 +65,13 @@ const Navbar = () => {
               <img
                 src="/logo.png"
                 alt="Akshai Healthcare Logo"
-                className="h-20 sm:h-24 lg:h-28 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+                className="h-14 sm:h-16 lg:h-20 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
               />
-              <div className="flex flex-col flex-shrink-0">
-                <span className="hidden sm:block font-black text-2xl sm:text-3xl lg:text-3xl xl:text-4xl leading-tight text-[#1E3A8A]">
+              <div className="flex flex-col flex-shrink-0 justify-center">
+                <span className="hidden sm:block font-extrabold text-xl sm:text-2xl lg:text-2xl xl:text-[26px] leading-tight text-[#1E3A8A]">
                   Akshai Healthcare Services
                 </span>
-                <span className="sm:hidden font-black text-xl text-[#1E3A8A]">
+                <span className="sm:hidden font-extrabold text-lg text-[#1E3A8A]">
                   Akshai Healthcare Services
                 </span>
               </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-[#4B5563] hover:text-[#3B82F6] font-semibold text-base xl:text-lg transition-all duration-300 relative py-2 whitespace-nowrap group"
+                  className="text-[#4B5563] hover:text-[#3B82F6] font-semibold text-sm xl:text-base transition-all duration-300 relative py-2 whitespace-nowrap group"
                 >
                   {link.name}
                   <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#3B82F6] transition-all duration-300 group-hover:w-full" />
