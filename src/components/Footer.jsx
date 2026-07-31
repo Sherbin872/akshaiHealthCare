@@ -106,10 +106,10 @@ const Footer = () => {
                                 />
                             </div>
                             <div>
-                                <h3 className="text-white font-extrabold text-xl leading-tight">
+                                <h3 className="text-white font-black text-2xl sm:text-3xl leading-tight">
                                     Akshai Healthcare Services
                                 </h3>
-                                <p className="text-white/70 text-xs mt-0.5">Care & Compassion At Your Home</p>
+                                <p className="text-white/80 text-sm mt-1">Care & Compassion At Your Home</p>
                             </div>
                         </div>
                         <p className="text-white/70 text-sm leading-relaxed mb-6">

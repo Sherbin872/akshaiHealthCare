@@ -68,10 +68,10 @@ const Navbar = () => {
                 className="h-20 sm:h-24 lg:h-28 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
               />
               <div className="flex flex-col flex-shrink-0">
-                <span className="hidden sm:block font-extrabold text-lg sm:text-xl lg:text-xl xl:text-2xl leading-tight text-[#1E3A8A]">
+                <span className="hidden sm:block font-black text-2xl sm:text-3xl lg:text-3xl xl:text-4xl leading-tight text-[#1E3A8A]">
                   Akshai Healthcare Services
                 </span>
-                <span className="sm:hidden font-extrabold text-base text-[#1E3A8A]">
+                <span className="sm:hidden font-black text-xl text-[#1E3A8A]">
                   Akshai Healthcare Services
                 </span>
               </div>
@@ -85,7 +85,7 @@ const Navbar = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-[#4B5563] hover:text-[#3B82F6] font-semibold text-sm xl:text-[15px] transition-all duration-300 relative py-2 whitespace-nowrap group"
+                  className="text-[#4B5563] hover:text-[#3B82F6] font-semibold text-base xl:text-lg transition-all duration-300 relative py-2 whitespace-nowrap group"
                 >
                   {link.name}
                   <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#3B82F6] transition-all duration-300 group-hover:w-full" />
@@ -188,10 +188,10 @@ const Navbar = () => {
                 />
               </div>
               <div>
-                <p className="text-white font-bold text-base leading-tight">
+                <p className="text-white font-extrabold text-xl leading-tight">
                   Akshai Healthcare Services
                 </p>
-                <p className="text-[#93C5FD] text-[10px] tracking-wide">
+                <p className="text-[#93C5FD] text-xs tracking-wide mt-0.5">
                   Compassionate Patient Care
                 </p>
               </div>
